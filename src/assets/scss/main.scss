@@ -1,0 +1,19 @@
+@use './colors.scss' as colors;
+@import './icons/icons.css';
+
+* {
+  font-family: 'Roboto' sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  color: colors.$font;
+}
+
+html {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding: 22px 24px;
+  min-width: 900px;
+}
