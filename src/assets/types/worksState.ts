@@ -27,10 +27,10 @@ export type WorkItem = {
 
 
 export type WorkMeta = {
-  parentNode: WorkId | null
-  firstChildNode: WorkId | null
-  nextNode: WorkId | null
-  prevNode: WorkId | null
+  parentNode?: WorkId 
+  firstChildNode?: WorkId 
+  nextNode?: WorkId 
+  prevNode?: WorkId 
 
   status: WorkStatus
   level: WorkLevel
