@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { Project, WorkId, WorkItem, WorkMeta } from "../../../types/chart"
+import { Project, WorkId, WorkItem, WorkMeta } from "../../../types/worksState"
 import { fetchAllWorks } from "./asyncThunks/fetchAllWorks"
 
 
@@ -9,7 +9,7 @@ export type WorksState = {
   project: Project | null
   rootNodeId: WorkId | null,
   fetched: boolean,
-  workbyId: { [keyId: string]: Omit<WorkItem, 'sub'> },
+  workbyId: { [keyId: string]: WorkItem },
   metaById: { [keyId: string]: WorkMeta },
 
 }
