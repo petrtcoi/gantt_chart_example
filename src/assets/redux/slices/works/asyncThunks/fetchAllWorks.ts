@@ -7,38 +7,71 @@ import { GetWorksDto, WorkItemDto } from '../../../../api/apiGetWorks'
 
 type ApiData = { apiDto: GetWorksDto }
 type WithProject = ApiData & Pick<WorksState, 'project'>
-type WithProjectWorks = WithProject & Pick<WorksState, 'workbyId'>
+type WithRootNodeId = ApiData & Pick<WorksState, 'rootNodeId'>
+type WithProjectWorks = WithRootNodeId & Pick<WorksState, 'workbyId'>
 type WithProjectWorksMeta = WithProjectWorks & Pick<WorksState, 'metaById'>
 
+type withError = { error?: string }
+
+const defLevel1 = R.defaultTo(1)
 
 
-
-export const fetchAllWorks = createAsyncThunk<Promise<WithProjectWorks>>(
+export const fetchAllWorks = createAsyncThunk<Promise<WorksState & withError>>(
   'works/fetchAll',
   async () => {
-    return R.pipeWith(R.andThen, [
-      apiGetWorks,
-      validateData,
-      toApiData,
-      addProject,
-      getWorksById
-    ])()
+
+    const apiData = await apiGetWorks()
+    const getState = R.tryCatch(
+      R.pipe(
+        () => apiData,
+        validateData,
+        toApiData,
+        getRootNodeId,
+        getProjectData,
+        getWorksById,
+        getMetaById,
+        setRootDay,
+        setFetchedTrue
+      ),
+      handleError
+    )
+    return getState()
   }
 )
 
 
 
+
+/**
+ * Написать  позже - должна быть валидация JOI или что-то подобное
+ */
 function validateData(data: GetWorksDto): GetWorksDto {
   return data
 }
 
+/**
+ * Конвертирует ответ сервера в объект для дальнейшей работы
+ */
 function toApiData(data: GetWorksDto): ApiData {
   return { apiDto: data }
 }
 
-function addProject(props: ApiData): WithProject {
+/**
+ * Устанавливаем корневой WorkId
+ */
+function getRootNodeId(props: ApiData): WithRootNodeId {
   return {
-    apiDto: props.apiDto,
+    ...props,
+    rootNodeId: props.apiDto.chart.id
+  }
+}
+
+/**
+ * Устанавливаем данные по проекту WorksState["project"]
+ */
+function getProjectData(props: WithRootNodeId): WithProject {
+  return {
+    ...props,
     project: {
       title: props.apiDto.project,
       period: props.apiDto.period
@@ -46,7 +79,10 @@ function addProject(props: ApiData): WithProject {
   }
 }
 
-/** Получает объект workById */
+
+/**
+ * Устанавливаем работы по проекту WorksState["worksById"]
+ */
 function getWorksById(props: WithProject): WithProjectWorks {
   const { chart } = props.apiDto
   return {
@@ -69,57 +105,91 @@ function getWork(workDto: WorkItemDto, workById: WorksState['workbyId']): WorksS
 
 
 
+/**
+ * Устанавливаем мета-данные по проекту WorksState["metaById"]
+ */
+function getMetaById(props: WithProjectWorks): WithProjectWorksMeta {
+  const metaById = scanWorkForMeta(props.apiDto.chart, Object.create(null))
+  return {
+    ...props,
+    metaById
+  }
+}
+function scanWorkForMeta(workDto: WorkItemDto, metaById: WorksState['metaById']): WorksState['metaById'] {
+  const { sub, id: workId } = workDto
+  const updatedMeta = { ...metaById }
+
+  if (!sub || sub.length === 0) return updatedMeta
+
+  const workLevel = defLevel1(metaById[workId]?.level)
+  const childLevel = workLevel + 1
+  return sub.reduce((meta, child, index) => {
+    return scanWorkForMeta(
+      child,
+      {
+        ...meta,
+        [child.id]: {
+          ...updatedMeta[child.id],
+          level: childLevel,
+          prevNode: sub[index - 1]?.id || undefined,
+          nextNode: sub[index + 1]?.id || undefined
+        }
+      }
+    )
+  }, {
+    ...updatedMeta,
+    [workId]: { ...updatedMeta[workId], firstChildNode: sub[0].id, level: workLevel, status: WorkStatus.Showing },
+    [sub[0].id]: { ...updatedMeta[sub[0].id], parentNode: workId, level: childLevel }
+  })
+}
 
 
-  // function extractMeta(data: Project) {
-  //   const metaById: WorksState['metaById'] = Object.create(null)
+/**
+ * Set rootDay
+ */
+ function setRootDay(props: WithProjectWorksMeta): WorksState {
+  return {
+    ...props,
+    rootDay: props.apiDto.chart.period_start
+  }
+}
+
+
+/**
+ * Set Fetched = true
+ */
+function setFetchedTrue(props: WorksState): WorksState {
+  return {
+    ...props,
+    fetched: true
+  }
+}
 
 
 
 
 
-  // }
-  // type GetWorkMetaProps = {
-  //   metaById: WorksState['metaById'],
-  //   works: WorkItem,
-  //   workMeta: Pick<WorkMeta, 'parentNode' | 'prevNode'>
+/** 
+ * Ошибка - возвращаем пустой state и сообщение  об ошибке 
+ * */
+function handleError(err: any) {
+  return {
+    ...getEmptyState(),
+    error: `fetchAllWorks: ${err}`
+  }
+}
 
-  // }
-  // function getWorkMeta(props: GetWorkMetaProps): WorksState["metaById"] {
+function getEmptyState(): WorksState {
+  return {
+    fetched: true,
+    workbyId: {},
+    metaById: {}
+  }
+}
+function getEmptyMeta(): WorkMeta {
+  return {
+    level: 1,
+    status: WorkStatus.Showing
+  }
 
-  //   const workId = props.work.id
-  //   const metaById = { ...props.metaById }
-
-  //   const workMeta: WorkMeta = {
-  //     ...props.workMeta,
-  //     nextNode: null,
-  //     firstChildNode: null,
-  //     status: WorkStatus.Showing,
-  //     level: props.workMeta.parentNode
-  //       ? nextLevel(metaById[props.workMeta.parentNode].level)
-  //       : props.workMeta.prevNode
-  //         ? metaById[props.workMeta.prevNode].level
-  //         : 1,
-  //   }
-
-  //   if (workMeta.parentNode) metaById[workMeta.parentNode].firstChildNode = workId
-  //   if (workMeta.prevNode) metaById[workMeta.prevNode].nextNode = workId
-
-
-
-
-  // }
-
-
-
-  // export type WorkMeta = {
-  //   parentNode: WorkId | null
-  //   firstChildNode: WorkId | null
-  //   nextNode: WorkId | null
-  //   prevNode: WorkId | null
-
-  //   status: WorkStatus
-  //   level: WorkLevel
-  // }
-
-
+}

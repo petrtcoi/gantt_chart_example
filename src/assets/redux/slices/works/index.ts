@@ -6,16 +6,18 @@ import { fetchAllWorks } from "./asyncThunks/fetchAllWorks"
 
 
 export type WorksState = {
-  project: Project | null
-  rootNodeId: WorkId | null,
-  fetched: boolean,
+  project?: Project
+  rootNodeId?: WorkId,
+  rootDay?: string,
+  fetched?: boolean,
   workbyId: { [keyId: string]: WorkItem },
   metaById: { [keyId: string]: WorkMeta },
 
 }
 const initialState: WorksState = {
-  project: null,
-  rootNodeId: null,
+  project: undefined,
+  rootNodeId: undefined,
+  rootDay: undefined,
   fetched: false,
   workbyId: {},
   metaById: {},
@@ -28,8 +30,8 @@ export const worksSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchAllWorks.fulfilled, (state, action) => {
-      // state = { ...state, ...action.payload }
-      console.log(action.payload)
+      state = { ...state, ...action.payload }
+      return state
     })
   }
 

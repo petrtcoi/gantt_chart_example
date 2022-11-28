@@ -15,7 +15,6 @@ const GanttChart: React.FC<GanttChartProps> = (_props) => {
   React.useEffect(() => {
 
     (async () => {
-      console.log('PING')
       await dispatch(fetchAllWorks())
     })()
 

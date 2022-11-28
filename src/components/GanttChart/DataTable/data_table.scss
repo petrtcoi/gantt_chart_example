@@ -1,7 +1,7 @@
 @use './../../../assets/scss/colors' as colors;
 
 $font_header: #6d6e85;
-$weekend: #A9A9B8;
+$weekend: #a9a9b8;
 $table_border_radius: 10px;
 $header_height: 48px;
 
@@ -23,10 +23,14 @@ $header_height: 48px;
     padding: 0;
     margin: 0;
   }
+
+  tr {
+    td:first-child,
+    th:first-child {
+      padding-left: 20px;
+    }
+  }
 }
-
-x
-
 
 /**
 **   TABLE HEADER
@@ -43,7 +47,6 @@ x
 }
 
 .title_cell {
-  padding-left: 20px;
   height: $header_height;
   min-width: 390px;
 
@@ -79,7 +82,8 @@ x
   font-size: 12px;
   line-height: 16px;
 }
-[data-dayindex="5"], [data-dayindex="6"]  {
+[data-dayindex='5'],
+[data-dayindex='6'] {
   color: $weekend;
 }
 

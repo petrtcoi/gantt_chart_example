@@ -1,9 +1,9 @@
 import dayjs from 'dayjs'
 import * as R from 'ramda'
-import { AppDate } from '../types/appdate'
+import { AppDate } from '../types/appDate'
 
 
-export function getDateFromString(dateString: string) {
+export function getDateFromString(dateString?: string) {
   const date = dayjs(dateString)
   return R.isNil(date) ? Error('wrong date format') : date
 }

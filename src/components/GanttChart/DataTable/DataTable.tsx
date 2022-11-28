@@ -2,15 +2,16 @@ import React from 'react'
 import TableHeader from './TableHeader/TableHeader'
 
 import './data_table.scss'
-import { getDateFromString } from '../../../assets/utils/date'
 import { isError } from '../../../assets/utils/errors'
+import EmptyCells from './EmptyCells/TableGrid'
+import { getRootDay } from './utils/getRootDay'
 
 
 type DataTableProps = {}
 
 const DataTable: React.FC<DataTableProps> = (_props) => {
 
-  const rootDay = getDateFromString('2022-09-29')
+  const rootDay = getRootDay()
   if (isError(rootDay)) return null
 
   return (
@@ -18,7 +19,8 @@ const DataTable: React.FC<DataTableProps> = (_props) => {
       <table>
         <TableHeader rootDay={ rootDay } />
         <tbody style={ { height: "100%" } }>
-          <tr >
+          { emptyRow() }
+          <tr>
             <td>Пример</td>
             <td>asda</td>
             <td></td>
@@ -31,19 +33,7 @@ const DataTable: React.FC<DataTableProps> = (_props) => {
             <td></td>
             <td></td>
           </tr>
-          <tr >
-            <td>Последний</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          { emptyRow() }
         </tbody>
       </table>
 
@@ -53,3 +43,12 @@ const DataTable: React.FC<DataTableProps> = (_props) => {
 
 export default DataTable
 
+
+function emptyRow() {
+  return (
+    <tr >
+      <td></td>
+      { <EmptyCells lineN={ -999 } /> }
+    </tr>
+  )
+}
