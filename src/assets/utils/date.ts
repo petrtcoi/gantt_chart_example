@@ -56,7 +56,6 @@ export function getDDMMMString(date: AppDate): string {
  */
 export function getWeekString(monday: AppDate): string {
   const sunday = addDaysN(monday, 6)
-  console.log(getWeekDays(monday))
   return `${getDDMMMString(monday)} - ${getDDMMMString(sunday)}`
 }
 

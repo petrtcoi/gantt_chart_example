@@ -14,9 +14,11 @@ const TableHeader: React.FC<TableHeaderProps> = (props) => {
 
 
   function weekTitle(monday: AppDate) {
+
+    const weekStr = getWeekString(monday)
     return (
-      <th colSpan={ 7 } className="week__title">
-        { getWeekString(monday) }
+      <th colSpan={ 7 } className="week__title" key={ weekStr }>
+        { weekStr }
       </th>
     )
   }
@@ -24,7 +26,7 @@ const TableHeader: React.FC<TableHeaderProps> = (props) => {
   function weekDays(monday: AppDate) {
     return (
       <>
-        { getWeekDays(monday).map((weekDay, index) => <th className="week__day" data-dayindex={index}>{ weekDay }</th>) }
+        { getWeekDays(monday).map((weekDay, index) => <th className="week__day" data-dayindex={ index } key={`${weekDay} ${index}` }>{ weekDay }</th>) }
       </>
     )
   }

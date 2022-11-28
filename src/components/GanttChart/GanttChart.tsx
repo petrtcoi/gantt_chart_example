@@ -3,11 +3,23 @@ import DataTable from './DataTable/DataTable'
 import ProjectHeader from './ProjectHeader/ProjectHeader'
 
 import './gantt_chart.scss'
+import { useAppDispatch } from '../../assets/redux/hooks/index'
+import { fetchAllWorks } from '../../assets/redux/slices/works/asyncThunks/fetchAllWorks'
 
 
 type GanttChartProps = {}
 
 const GanttChart: React.FC<GanttChartProps> = (_props) => {
+
+  const dispatch = useAppDispatch()
+  React.useEffect(() => {
+
+    (async () => {
+      console.log('PING')
+      await dispatch(fetchAllWorks())
+    })()
+
+  }, [])
 
   return (
     <div id='gantt_chart'>
