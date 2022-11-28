@@ -1,6 +1,8 @@
 import React from 'react'
-import './data_table.scss'
 import TableHeader from './TableHeader/TableHeader'
+
+import './data_table.scss'
+
 
 type DataTableProps = {}
 
@@ -9,7 +11,36 @@ const DataTable: React.FC<DataTableProps> = (_props) => {
     <div id="data_table">
       <table>
         <TableHeader />
+        <tbody style={ { height: "100%" } }>
+          <tr >
+            <td>Пример</td>
+            <td>asda</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr >
+            <td>Последний</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
       </table>
+
     </div>
   )
 }

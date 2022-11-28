@@ -1,18 +1,81 @@
 @use './../../../assets/scss/colors' as colors;
 
+$font_header: #6d6e85;
+$table_border_radius: 10px;
+$header_height: 48px;
+
 #data_table {
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 0 auto;
+  width: 100%;
   margin-top: 18px;
-  // border: 2px solid blue;
+  width:100%;
+	overflow:hidden;
+  // overflow-x: scroll;
+
+  border: 1px solid colors.$grey;
+  border-top-left-radius: $table_border_radius;
+  border-bottom-left-radius: $table_border_radius;
+  
 
   > table {
-    width: 100%;
-    flex: 1 1 auto;
+    display: table;
+    // table-layout:fixed;
+    // // width: 100%;
+    // overflow: hidden;
+    border-collapse: collapse;
     padding: 0;
     margin: 0;
-    // min-height: calc(100vh - 100px);
-    border: 1px solid colors.$border;
-    border-radius: 10px;
+    // border-top-left-radius: $table_border_radius;
   }
+}
+
+
+/**
+**   TABLE HEADER
+**/
+
+.table_header {
+  flex-direction: row;
+  height: $header_height;
+  background-color: colors.$grey-light;
+
+
+  th {
+    border-right: 1px solid colors.$grey;
+  }
+}
+
+
+.title_cell {
+  padding-left: 20px;
+  height: $header_height;
+  width: 390px;
+
+  text-align: left;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: $font_header;
+}
+
+.days_header th {
+  width: 22px;
+  border-top: 1px solid colors.$grey;
+}
+
+
+
+/**
+**   TABLE BODY
+**/
+
+tbody tr:not(:last-child) {
+  height: 40px;
+}
+tbody td {
+  border-right: 1px solid colors.$grey;
+}
+tbody tr:not(:last-child) > td:first-child {
+  border-bottom: 1px solid colors.$grey;
 }
