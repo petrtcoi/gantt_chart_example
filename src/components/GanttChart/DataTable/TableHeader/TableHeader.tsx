@@ -1,71 +1,42 @@
 import React from 'react'
+import { AppDate } from '../../../../assets/types/appdate'
+import { getWeekString, addWeeksN, getWeekDays } from '../../../../assets/utils/date'
 
-type TableHeaderProps = {}
+type TableHeaderProps = {
+  rootDay: AppDate
+}
 
-const TableHeader: React.FC<TableHeaderProps> = (_props) => {
+const WEEKS = 10
+const WEEKS_LIST = [...Array(WEEKS).keys()]
+
+const TableHeader: React.FC<TableHeaderProps> = (props) => {
+
+
+
+  function weekTitle(monday: AppDate) {
+    return (
+      <th colSpan={ 7 } className="week__title">
+        { getWeekString(monday) }
+      </th>
+    )
+  }
+
+  function weekDays(monday: AppDate) {
+    return (
+      <>
+        { getWeekDays(monday).map((weekDay, index) => <th className="week__day" data-dayindex={index}>{ weekDay }</th>) }
+      </>
+    )
+  }
 
   return (
     <thead className={ 'table_header' }>
       <tr>
         <th rowSpan={ 2 } className={ 'title_cell' }>Work Item</th>
-        <th colSpan={ 7 } style={{minWidth: "200px"}}>WEEK</th>
-        <th colSpan={ 7 } style={{minWidth: "200px"}}>WEEK</th>
-        <th colSpan={ 7 } style={{minWidth: "200px"}}>WEEK</th>
-        <th colSpan={ 7 } style={{minWidth: "200px"}}>WEEK</th>
-        <th colSpan={ 7 } style={{minWidth: "200px"}}>WEEK</th>
-        <th colSpan={ 7 } style={{minWidth: "200px"}}>*WEEK</th>
-        <th colSpan={ 7 } style={{minWidth: "200px"}}>*WEEK</th>
+        { WEEKS_LIST.map(weekIndex => weekTitle(addWeeksN(props.rootDay, weekIndex))) }
       </tr>
-      <tr className={'days_header'}>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
-        <th>7</th>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
-        <th>7</th>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
-        <th>7</th>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
-        <th>7</th>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
-        <th>7</th>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
-        <th>7</th> 
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
-        <th>7</th>
+      <tr className={ 'days_header' }>
+        { WEEKS_LIST.map(weekIndex => weekDays(addWeeksN(props.rootDay, weekIndex))) }
       </tr>
 
     </thead>
@@ -75,3 +46,4 @@ const TableHeader: React.FC<TableHeaderProps> = (_props) => {
 }
 
 export default TableHeader
+
