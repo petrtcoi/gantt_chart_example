@@ -13,9 +13,9 @@ type WithProjectWorksMeta = WithProjectWorks & Pick<WorksState, 'metaById'>
 
 
 
-export const fetchAllWorks = createAsyncThunk(
+export const fetchAllWorks = createAsyncThunk<Promise<WithProjectWorks>>(
   'works/fetchAll',
-  async (): Promise<WithProjectWorks>  => {
+  async () => {
     return R.pipeWith(R.andThen, [
       apiGetWorks,
       validateData,

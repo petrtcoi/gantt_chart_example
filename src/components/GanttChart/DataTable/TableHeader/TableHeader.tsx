@@ -26,7 +26,7 @@ const TableHeader: React.FC<TableHeaderProps> = (props) => {
   function weekDays(monday: AppDate) {
     return (
       <>
-        { getWeekDays(monday).map((weekDay, index) => <th className="week__day" data-dayindex={ index } key={`${weekDay} ${index}` }>{ weekDay }</th>) }
+        { getWeekDays(monday).map((weekDay, index) => <th className="week__day" data-dayindex={ index } key={`${weekDay}-${index}` }>{ weekDay }</th>) }
       </>
     )
   }
