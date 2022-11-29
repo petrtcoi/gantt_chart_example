@@ -13,7 +13,7 @@ type GanttChartProps = {}
 const GanttChart: React.FC<GanttChartProps> = (_props) => {
 
   const project = useAppSelector(selectProject)
-  if (!project) return null
+  if (!project) return <>Loading...</>
 
   return (
     <div id='gantt_chart'>
