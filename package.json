@@ -1,6 +1,6 @@
 {
   "name": "gant_chart_example",
-  "homepage": ".",
+
   "private": true,
   "version": "0.0.0",
   "type": "module",
