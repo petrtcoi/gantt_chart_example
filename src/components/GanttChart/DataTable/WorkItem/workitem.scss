@@ -24,7 +24,9 @@ $graph_border_radius: 5px;
 }
 
 .el_graph__single {
+  position: relative;
   border-radius: $graph_border_radius;
+  text-align: right;
 }
 .el_graph__start {
   border-top-left-radius: $graph_border_radius;
@@ -33,13 +35,25 @@ $graph_border_radius: 5px;
   margin-right: -5px;
 }
 .el_graph__end {
+  position: relative;
   border-top-right-radius: $graph_border_radius;
   border-bottom-right-radius: $graph_border_radius;
   border-left: none;
   margin-left: -5px;
+  text-align: right;
 }
 .el_graph__middle {
   border-right: none;
   border-left: none;
   margin-inline: -5px;
+}
+
+.el_graph__end::after,
+.el_graph__single::after {
+  position: absolute;
+  content: attr(data-title);
+  padding-left: 8px;
+  width: 300px;
+  text-align: left;
+  font-size: 14px;
 }

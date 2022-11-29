@@ -47,8 +47,9 @@ const WorkItem__Row: React.FC<WorkItem__RowProps> = (props) => {
           return (
             <td key={ `${props.workId}-${index}` }>
               <div
-                className={ getClass(index)}
+                className={ getClass(index) }
                 data-level={ level }
+                data-title={ work.title }
               />
             </td>
           )
