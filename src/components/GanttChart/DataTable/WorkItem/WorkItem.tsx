@@ -16,7 +16,6 @@ const WorkItem: React.FC<WorkItemProps> = (props) => {
   const work = useAppSelector(selectWork(props.workId))
   const meta = useAppSelector(selectMeta(props.workId))
   const childQnty = useAppSelector(getChildQnty(props.workId))
-
   const controledStatus = useAppSelector(selectUpperControlerNodeStatus(props.workId))
 
   React.useEffect(() => {
@@ -24,7 +23,6 @@ const WorkItem: React.FC<WorkItemProps> = (props) => {
   }, [controledStatus])
 
   if (meta.upperNodeStatus === WorkStatus.Collapsed) return null
-
   return (
     <tr>
       <WorkItem__Header
