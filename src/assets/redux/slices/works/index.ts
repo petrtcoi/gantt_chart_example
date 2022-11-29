@@ -30,6 +30,9 @@ export const worksSlice = createSlice({
   reducers: {
     setStatus: (state, action: PayloadAction<{ workId: WorkId, status: WorkStatus }>) => {
       state.metaById[action.payload.workId].status = action.payload.status
+    },
+    setUpperNodeStatus: (state, action: PayloadAction<{ workId: WorkId, status: WorkStatus }>) => {
+      state.metaById[action.payload.workId].upperNodeStatus = action.payload.status
     }
   },
   extraReducers: (builder) => {
@@ -41,5 +44,5 @@ export const worksSlice = createSlice({
 
 })
 
-export const { setStatus } = worksSlice.actions
+export const { setStatus, setUpperNodeStatus } = worksSlice.actions
 export default worksSlice.reducer

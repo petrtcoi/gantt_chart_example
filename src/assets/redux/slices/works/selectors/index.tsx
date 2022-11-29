@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { WorksState } from '..'
-import { WorkId } from '../../../../types/worksState'
+import { WorkId, WorkStatus } from '../../../../types/worksState'
 import { RootState } from '../../../store'
 
 
@@ -10,6 +10,26 @@ const defZero = R.defaultTo(0)
 export const selectRootDate = (state: RootState) => state.works.rootDay
 export const selectWork = (workId: WorkId) => (state: RootState) => state.works.workbyId[workId]
 export const selectMeta = (workId: WorkId) => (state: RootState) => state.works.metaById[workId]
+
+
+export const selectUpperControlerNodeStatus = (workId: WorkId) => (state: RootState) => {
+  const parentNode = state.works.metaById[workId].parentNode
+  const prevNode = state.works.metaById[workId].prevNode
+  
+
+  if (prevNode) return state.works.metaById[prevNode].upperNodeStatus
+
+  if (parentNode) {
+    const parentMeta = state.works.metaById[parentNode]
+    return (
+      (parentMeta.status === WorkStatus.Collapsed || parentMeta.upperNodeStatus === WorkStatus.Collapsed)
+        ? WorkStatus.Collapsed
+        : WorkStatus.Expanded
+    )
+  }
+
+  return WorkStatus.Collapsed
+}
 
 
 

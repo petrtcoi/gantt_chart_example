@@ -1,9 +1,9 @@
 import React from 'react'
-import { WorkId } from '../../../../assets/types/worksState'
+import { WorkId, WorkStatus } from '../../../../assets/types/worksState'
 import WorkItem__Header from './WorkItem__Header'
 import { useAppDispatch, useAppSelector } from '../../../../assets/redux/hooks/index'
-import { selectWork, selectMeta, getChildQnty } from '../../../../assets/redux/slices/works/selectors/index'
-import { setStatus } from '../../../../assets/redux/slices/works'
+import { selectWork, selectMeta, getChildQnty, selectUpperControlerNodeStatus } from '../../../../assets/redux/slices/works/selectors/index'
+import { setStatus, setUpperNodeStatus } from '../../../../assets/redux/slices/works'
 
 type WorkItemProps = {
   workId: WorkId
@@ -17,15 +17,13 @@ const WorkItem: React.FC<WorkItemProps> = (props) => {
   const meta = useAppSelector(selectMeta(props.workId))
   const childQnty = useAppSelector(getChildQnty(props.workId))
 
-  const upperMeta = meta.parentNode ?
-    useAppSelector(selectMeta(meta.parentNode))
-    : meta.prevNode ?
-      useAppSelector(selectMeta(meta.prevNode))
-      : null
+  const controledStatus = useAppSelector(selectUpperControlerNodeStatus(props.workId))
 
   React.useEffect(() => {
-    dispatch(setStatus({ workId: props.workId, status: upperMeta?.status }))
-  }, [upperMeta?.status])
+    dispatch(setUpperNodeStatus({ workId: props.workId, status: controledStatus }))
+  }, [controledStatus])
+
+  if (meta.upperNodeStatus === WorkStatus.Collapsed) return null
 
   return (
     <tr>

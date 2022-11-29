@@ -1,7 +1,7 @@
 export type WorkId = number
 export enum WorkStatus {
-  Showing = 'showing',
-  Hidden = 'hidden'
+  Expanded = 'expanded',
+  Collapsed = 'collapsed'
 }
 export type WorkLevel = number
 export function nextLevel(level: WorkLevel) {
@@ -33,6 +33,7 @@ export type WorkMeta = {
   prevNode?: WorkId 
 
   status: WorkStatus
+  upperNodeStatus: WorkStatus
   level: WorkLevel
 }
 

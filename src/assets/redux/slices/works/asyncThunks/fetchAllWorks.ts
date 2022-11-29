@@ -139,7 +139,7 @@ function scanWorkForMeta(workDto: WorkItemDto, metaById: WorksState['metaById'])
     )
   }, {
     ...updatedMeta,
-    [workId]: { ...updatedMeta[workId], firstChildNode: sub[0].id, level: workLevel, status: WorkStatus.Showing },
+    [workId]: { ...updatedMeta[workId], firstChildNode: sub[0].id, level: workLevel, status: WorkStatus.Expanded, upperNodeStatus: WorkStatus.Expanded },
     [sub[0].id]: { ...updatedMeta[sub[0].id], parentNode: workId, level: childLevel }
   })
 }
@@ -148,7 +148,7 @@ function scanWorkForMeta(workDto: WorkItemDto, metaById: WorksState['metaById'])
 /**
  * Set rootDay
  */
- function setRootDay(props: WithProjectWorksMeta): WorksState {
+function setRootDay(props: WithProjectWorksMeta): WorksState {
   return {
     ...props,
     rootDay: props.apiDto.chart.period_start
@@ -190,7 +190,8 @@ function getEmptyState(): WorksState {
 function getEmptyMeta(): WorkMeta {
   return {
     level: 1,
-    status: WorkStatus.Showing
+    status: WorkStatus.Expanded,
+    upperNodeStatus: WorkStatus.Expanded
   }
 
 }
