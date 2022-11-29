@@ -12,7 +12,7 @@ const ProjectHeader: React.FC<ProjectHeaderProps> = (props) => {
     <div id="project_header">
       <h1 className="icon_level-1">{ props.title } / { props.period }</h1>
       <button className='export'>
-        <div className="icon_download"/>
+        <div className="icon_download" />
         Export
       </button>
     </div>

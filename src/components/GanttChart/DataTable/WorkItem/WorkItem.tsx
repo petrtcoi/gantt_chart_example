@@ -19,12 +19,18 @@ const WorkItem: React.FC<WorkItemProps> = (props) => {
   const upperNodeStatus = useAppSelector(selectUpperNodeStatus(props.workId))
 
   React.useEffect(() => {
-    dispatch(setUpperNodeStatus({ workId: props.workId, status: supervisorNodeUpperStatus }))
+    dispatch(
+      setUpperNodeStatus({
+        workId: props.workId,
+        status: supervisorNodeUpperStatus
+      })
+    )
   }, [supervisorNodeUpperStatus])
+
 
   if (upperNodeStatus === WorkStatus.Collapsed) return null
   return (
-    <tr >
+    <tr key={ props.workId }>
       <WorkItem__Header
         workId={ props.workId }
       />

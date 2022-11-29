@@ -2,17 +2,15 @@ import React from 'react'
 import * as R from 'ramda'
 
 import { getWeekString, addWeeksN, getWeekDays, getDateFromString } from './../../../../assets/utils/date'
-import { AppDate } from './../../../../assets/types/appDate'
+// import { AppDate } from './../../../../assets/types/appDate'
 import { WEEKS_LIST } from './../utils/weeksQnty'
 import { useAppSelector } from './../../../../assets/redux/hooks'
 import { selectRootDate } from './../../../../assets/redux/slices/works/selectors'
+import { AppDate } from '../../../../assets/types/appDate'
 
 
 
 type TableHeaderProps = {}
-const defDate = R.defaultTo("2022-09-01")
-
-
 
 
 const TableHeader: React.FC<TableHeaderProps> = (_props) => {
