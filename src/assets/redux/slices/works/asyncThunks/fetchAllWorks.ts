@@ -147,7 +147,7 @@ function scanWorkForMeta(workDto: WorkItemDto, metaById: WorksState['metaById'])
 
 
 /**
- * Set rootDay
+ *  Устанавливаем RootDay проекта (предполагаем, что раньше корневого задания другие не начинаются)
  */
 function setRootDay(props: WithProjectWorksMeta) {
   return {
@@ -158,7 +158,7 @@ function setRootDay(props: WithProjectWorksMeta) {
 
 
 /**
- * Set Fetched = true
+ * Устанавливаем значение Fetched = true
  */
 function setFetchedTrue(props: WorksState) {
   return {
@@ -187,12 +187,4 @@ function getEmptyState(): WorksState {
     workbyId: {},
     metaById: {}
   }
-}
-function getEmptyMeta(): WorkMeta {
-  return {
-    level: 1,
-    status: WorkStatus.Expanded,
-    upperNodeStatus: WorkStatus.Expanded
-  }
-
 }

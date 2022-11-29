@@ -8,18 +8,16 @@ const defEmptyArr = R.defaultTo([])
 const defZero = R.defaultTo(0)
 
 
-// получает rootDate проекта
-export const selectRootDate = (state: RootState) => state.works.rootDay
-// данные о работе (work)
 export const selectWork = (workId: WorkId) => (state: RootState) => state.works.workbyId[workId]
-//  мета-данные работы 
+
 export const selectMeta = (workId: WorkId) => (state: RootState) => state.works.metaById[workId]
-//  controlledUppedNode Status
+export const selectMetaLevel = (workId: WorkId) => (state: RootState) => state.works.metaById[workId].level
 export const selectUpperNodeStatus = (workId: WorkId) => (state: RootState) => state.works.metaById[workId].upperNodeStatus
 
 export const selectProjectRootDay = (state: RootState) => state.works.rootDay
+export const selectRootDate = (state: RootState) => state.works.rootDay
+export const selectProject =  (state: RootState) => state.works.project
 
-export const selectMetaLevel = (workId: WorkId) => (state: RootState) => state.works.metaById[workId].level
 
 
 /**
@@ -83,8 +81,8 @@ export const getWorkIdList = (state: RootState) => {
   )
 }
 
-
 const getListOfIds = (state: RootState) => getIdsList(state.works.metaById, state.works.rootNodeId)
+
 function getIdsList(metaById: WorksState['metaById'], workId?: WorkId) {
 
   return workId ? addWork(workId) : []
