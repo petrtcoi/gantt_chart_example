@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import * as R from 'ramda'
-import { AppDate } from '../types/appDate'
+// import { AppDate } from '../types/appDate'
 
 
 export function getDateFromString(dateString?: string) {
@@ -18,7 +18,7 @@ export function getDateFromString(dateString?: string) {
  * addDaysN(date) => '08 Jan 2000'
  * ```
  */
-export function addDaysN(date: AppDate, daysN: number = 1): AppDate {
+export function addDaysN(date: dayjs.Dayjs , daysN: number = 1): dayjs.Dayjs  {
   return dayjs(date).add(daysN, 'day')
 }
 
@@ -31,7 +31,7 @@ export function addDaysN(date: AppDate, daysN: number = 1): AppDate {
  * addWeeksN(date) => '08 Jan 2000'
  * ```
  */
-export function addWeeksN(date: AppDate, weeksN: number = 1): AppDate {
+export function addWeeksN(date: dayjs.Dayjs , weeksN: number = 1): dayjs.Dayjs  {
   return dayjs(date).add(7 * weeksN, 'day')
 }
 
@@ -43,7 +43,7 @@ export function addWeeksN(date: AppDate, weeksN: number = 1): AppDate {
  * getDDMMMString(someDate: AppDate) => '01 Jan'
  * ```
  */
-export function getDDMMMString(date: AppDate): string {
+export function getDDMMMString(date: dayjs.Dayjs ): string {
   return dayjs(date).format(`DD MMM`)
 }
 
@@ -54,7 +54,7 @@ export function getDDMMMString(date: AppDate): string {
  * getDDMMMString(someDate: AppDate) => '22 Sep - 28 Sep'
  * ```
  */
-export function getWeekString(monday: AppDate): string {
+export function getWeekString(monday: dayjs.Dayjs ): string {
   const sunday = addDaysN(monday, 6)
   return `${getDDMMMString(monday)} - ${getDDMMMString(sunday)}`
 }
@@ -68,7 +68,7 @@ export function getWeekString(monday: AppDate): string {
  * getWeekDays(monday: AppDate) => [29, 30, 1, 2, 3, 4, 5]
  * ```
  */
-export function getWeekDays(monday: AppDate): number[] {
+export function getWeekDays(monday: dayjs.Dayjs ): number[] {
   const mondayDate = dayjs(monday).get('date')
   return [...Array(6).keys()].reduce((arr, index) => {
     return [...arr, dayjs(addDaysN(monday, index + 1)).get('date')]
@@ -79,6 +79,6 @@ export function getWeekDays(monday: AppDate): number[] {
 /**
  * Разница в днях между двумя датами
  */
-export function daysDiff(start:AppDate, end: AppDate): number {
+export function daysDiff(start:dayjs.Dayjs , end: dayjs.Dayjs ): number {
   return end.diff(start, 'days')
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import * as R from 'ramda'
 
 import { getWeekString, addWeeksN, getWeekDays, getDateFromString } from './../../../../assets/utils/date'
-// import { AppDate } from './../../../../assets/types/appDate'
+// import { AppDate } from './../../../../assets/types/appdate'
 import { WEEKS_LIST } from './../utils/weeksQnty'
 import { useAppSelector } from './../../../../assets/redux/hooks'
 import { selectRootDate } from './../../../../assets/redux/slices/works/selectors'
@@ -49,7 +49,7 @@ const TableHeader: React.FC<TableHeaderProps> = (_props) => {
 export default TableHeader
 
 
-// Тут VERCEL ругался на тип appDate - не мог почему-то найти его - поэтому оставил так
+
 const WeekTitle: React.FC<{ monday: Dayjs }> = (props) => {
   const weekStr = getWeekString(props.monday)
   return (
