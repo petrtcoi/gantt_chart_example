@@ -1,11 +1,11 @@
 import React from 'react'
 import * as R from 'ramda'
 
-import { getWeekString, addWeeksN, getWeekDays, getDateFromString } from '../../../../assets/utils/date'
-import { AppDate } from '../../../../assets/types/appDate'
-import { WEEKS_LIST } from '../utils/weeksQnty'
-import { useAppSelector } from '../../../../assets/redux/hooks'
-import { selectRootDate } from '../../../../assets/redux/slices/works/selectors'
+import { getWeekString, addWeeksN, getWeekDays, getDateFromString } from './../../../../assets/utils/date'
+import { AppDate } from './../../../../assets/types/appDate'
+import { WEEKS_LIST } from './../utils/weeksQnty'
+import { useAppSelector } from './../../../../assets/redux/hooks'
+import { selectRootDate } from './../../../../assets/redux/slices/works/selectors'
 
 
 
