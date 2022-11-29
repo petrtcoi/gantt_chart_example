@@ -120,9 +120,17 @@ tbody tr:not(:last-child) > td:first-child {
   font-style: italic;
   font-size: 12px;
   line-height: 16px;
-  color: #8B8C9E;
+  color: #8b8c9e;
 }
 
-[data-hidden="hidden"] {
+.icon_collapse {
+  transition: transform 0.2s;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+[data-hidden='hidden'] {
   transform: rotate(-90deg);
+  transition: transform 0.2s;
 }

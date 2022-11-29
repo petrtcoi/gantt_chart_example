@@ -131,6 +131,7 @@ function scanWorkForMeta(workDto: WorkItemDto, metaById: WorksState['metaById'])
         [child.id]: {
           ...updatedMeta[child.id],
           level: childLevel,
+          parentNode: index === 0 ? workId : undefined,
           prevNode: sub[index - 1]?.id || undefined,
           nextNode: sub[index + 1]?.id || undefined
         }

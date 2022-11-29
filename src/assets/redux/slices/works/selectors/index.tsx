@@ -9,7 +9,7 @@ const defZero = R.defaultTo(0)
 
 export const selectRootDate = (state: RootState) => state.works.rootDay
 export const selectWork = (workId: WorkId) => (state: RootState) => state.works.workbyId[workId]
-export const selecMeta = (workId: WorkId) => (state: RootState) => state.works.metaById[workId]
+export const selectMeta = (workId: WorkId) => (state: RootState) => state.works.metaById[workId]
 
 
 

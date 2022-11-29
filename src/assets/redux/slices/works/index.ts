@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { Project, WorkId, WorkItem, WorkMeta } from "../../../types/worksState"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { Project, WorkId, WorkItem, WorkMeta, WorkStatus } from "../../../types/worksState"
 import { fetchAllWorks } from "./asyncThunks/fetchAllWorks"
 
 
@@ -27,7 +27,11 @@ const initialState: WorksState = {
 export const worksSlice = createSlice({
   name: 'works',
   initialState,
-  reducers: {},
+  reducers: {
+    setStatus: (state, action: PayloadAction<{ workId: WorkId, status: WorkStatus }>) => {
+      state.metaById[action.payload.workId].status = action.payload.status
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAllWorks.fulfilled, (state, action) => {
       state = { ...state, ...action.payload }
@@ -37,5 +41,5 @@ export const worksSlice = createSlice({
 
 })
 
-
+export const { setStatus } = worksSlice.actions
 export default worksSlice.reducer
