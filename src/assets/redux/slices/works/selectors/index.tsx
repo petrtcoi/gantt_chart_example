@@ -19,6 +19,8 @@ export const selectUpperNodeStatus = (workId: WorkId) => (state: RootState) => s
 
 export const selectProjectRootDay = (state: RootState) => state.works.rootDay
 
+export const selectMetaLevel = (workId: WorkId) => (state: RootState) => state.works.metaById[workId].level
+
 
 /**
  * Проверяет "upperNodeStatus" у Node, расположенных выше

@@ -1,19 +1,27 @@
 import React from 'react'
-import { getWeekString, addWeeksN, getWeekDays } from '../../../../assets/utils/date'
+import * as R from 'ramda'
+
+import { getWeekString, addWeeksN, getWeekDays, getDateFromString } from '../../../../assets/utils/date'
 import { AppDate } from '../../../../assets/types/appDate'
 import { WEEKS_LIST } from '../utils/weeksQnty'
+import { useAppSelector } from '../../../../assets/redux/hooks'
+import { selectRootDate } from '../../../../assets/redux/slices/works/selectors'
 
 
 
-type TableHeaderProps = {
-  rootDay: AppDate
-}
+type TableHeaderProps = {}
+const defDate = R.defaultTo("2022-09-01")
 
 
 
-const TableHeader: React.FC<TableHeaderProps> = (props) => {
 
-  const getMonday = (weeksQnty: number) => addWeeksN(props.rootDay, weeksQnty)
+const TableHeader: React.FC<TableHeaderProps> = (_props) => {
+
+  const rootDay = useAppSelector(selectRootDate)
+  const rootDayDate = getDateFromString(rootDay)
+  if (!rootDayDate) return null
+
+  const getMonday = (weeksQnty: number) => addWeeksN(rootDayDate, weeksQnty)
   const mondays = WEEKS_LIST.map(x => getMonday(x))
 
   return (
@@ -24,10 +32,10 @@ const TableHeader: React.FC<TableHeaderProps> = (props) => {
       </tr>
       <tr className={ 'days_header' }>
         { WEEKS_LIST.map(weekIndex => {
-          const weekMonday = addWeeksN(props.rootDay, weekIndex)
+          const weekMonday = addWeeksN(rootDayDate, weekIndex)
           return getWeekDays(weekMonday).map((day, index) => {
             return (
-              <th className="week__day" data-dayindex={ index % 7  } key={ index }>{ day }</th>
+              <th className="week__day" data-dayindex={ index % 7 } key={ index }>{ day }</th>
             )
           })
         }) }

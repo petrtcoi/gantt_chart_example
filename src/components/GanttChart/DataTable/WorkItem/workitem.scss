@@ -1,12 +1,45 @@
-.workitem_row {
+$graph_height: 20px;
+$graph_border_radius: 5px;
+
+.el_graph {
   position: relative;
-  display: block;
-  // flex-grow: 1;
-  height: 20px;
-  width: calc(100% - 2px);
-  // align-items: stretch;
-  margin: 0;
-  padding: 0px;
-  border: 1px solid black;
-  border-radius: 5px;
+  height: $graph_height;
+  border: 1px solid;
+  z-index: 100;
+
+  &[data-level='1'] {
+    border-color: #497cf6;
+    background-color: #e2ebff;
+  }
+  &[data-level='2'],
+  &[data-level='5'] {
+    border-color: #ffa530;
+    background-color: #fff2e0;
+  }
+  &[data-level='3'],
+  &[data-level='4'] {
+    border-color: #2db77b;
+    background-color: #cff0d6;
+  }
+}
+
+.el_graph__single {
+  border-radius: $graph_border_radius;
+}
+.el_graph__start {
+  border-top-left-radius: $graph_border_radius;
+  border-bottom-left-radius: $graph_border_radius;
+  border-right: none;
+  margin-right: -5px;
+}
+.el_graph__end {
+  border-top-right-radius: $graph_border_radius;
+  border-bottom-right-radius: $graph_border_radius;
+  border-left: none;
+  margin-left: -5px;
+}
+.el_graph__middle {
+  border-right: none;
+  border-left: none;
+  margin-inline: -5px;
 }

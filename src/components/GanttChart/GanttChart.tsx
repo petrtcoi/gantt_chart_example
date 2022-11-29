@@ -13,11 +13,9 @@ const GanttChart: React.FC<GanttChartProps> = (_props) => {
 
   const dispatch = useAppDispatch()
   React.useEffect(() => {
-
     (async () => {
       await dispatch(fetchAllWorks())
     })()
-
   }, [])
 
   return (

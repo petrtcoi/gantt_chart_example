@@ -25,13 +25,15 @@ const WorkItem__Header: React.FC<WorkItem__HeaderProps> = (props) => {
 
   if (!work || !meta) return null
   return (
-    <td  style={ { paddingLeft } }>
+    <td style={ { paddingLeft } }>
       <div className="work__header">
-        <div
-          className='pict icon_collapse'
-          data-hidden={ meta.status === WorkStatus.Collapsed ? 'hidden' : 'showing' }
-          onClick={ () => handleToggleStatus() }
-        />
+        { meta.firstChildNode &&
+          <div
+            className='pict icon_collapse'
+            data-hidden={ meta.status === WorkStatus.Collapsed ? 'hidden' : 'showing' }
+            onClick={ () => handleToggleStatus() }
+          />
+        }
 
         <div className={ `pict icon_level-${meta.level}` } />
 
