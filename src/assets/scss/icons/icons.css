@@ -28,45 +28,48 @@
   content: "\e900";
   color: #be385e;
   position: relative;
-  top: 0.1em;
+  top: 0em;
 
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
 
+  font-size: 0.8em;
   width: 1.5em;
   height: 1.5em;
-  background-color: #F5F1FE;
+  background-color: #f5f1fe;
   border-radius: 0.4em;
 }
 .icon_level-1:before {
   content: "\e901";
-  color: #8754F6;
+  color: #8754f6;
   position: relative;
-  top: 0.1em;
+  top: 0em;
 
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
 
+  font-size: 0.8em;
   width: 1.5em;
   height: 1.5em;
-  background-color: #F5F1FE;
+  background-color: #f5f1fe;
   border-radius: 0.4em;
 }
 .icon_level-2:before {
   content: "\e902";
   color: #2db77b;
   position: relative;
-  top: 0.1em;
+  top: 0em;
 
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
 
+  font-size: 0.8em;
   width: 1.5em;
   height: 1.5em;
   background-color: #eef9f4;
@@ -76,16 +79,17 @@
   content: "\e903";
   color: #8754f6;
   position: relative;
-  top: 0.1em;
+  top: 0em;
 
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
 
+  font-size: 0.8em;
   width: 1.5em;
   height: 1.5em;
-  background-color: #F5F1FE;
+  background-color: #f5f1fe;
   border-radius: 0.4em;
 }
 .icon_level-3:before {
@@ -93,22 +97,34 @@
   color: #f0c752;
 
   position: relative;
-  top: 0.1em;
+  top: 0em;
 
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
 
+  font-size: 0.8em;
   width: 1.5em;
   height: 1.5em;
-  background-color: #FEFBF0;
+  background-color: #fefbf0;
   border-radius: 0.4em;
 }
 .icon_collapse:before {
   content: "\e910";
   color: #6d6e85;
+  position: relative;
+  font-size: 0.5em;
+  bottom: 0.2em;
+}
+.icon_expand:before {
+  content: "\e910";
+  color: #6d6e85;
+  position: relative;
+  font-size: 0.5em;
+  bottom: 0.2em;
 }
 .icon_download:before {
   content: "\e911";
 }
+

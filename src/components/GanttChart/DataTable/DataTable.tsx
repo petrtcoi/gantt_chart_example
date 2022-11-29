@@ -5,35 +5,35 @@ import './data_table.scss'
 import { isError } from '../../../assets/utils/errors'
 import EmptyCells from './EmptyCells/TableGrid'
 import { getRootDay } from './utils/getRootDay'
+import { useAppSelector } from '../../../assets/redux/hooks/index'
+import { getWorkIdList } from '../../../assets/redux/slices/works/selectors'
+import WorkItem from './WorkItem/WorkItem'
 
 
 type DataTableProps = {}
 
 const DataTable: React.FC<DataTableProps> = (_props) => {
 
+  const worksIdList = useAppSelector(getWorkIdList)
   const rootDay = getRootDay()
   if (isError(rootDay)) return null
+
+
 
   return (
     <div id="data_table">
       <table>
         <TableHeader rootDay={ rootDay } />
         <tbody style={ { height: "100%" } }>
-          { emptyRow() }
-          <tr>
-            <td>Пример</td>
-            <td>asda</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          { emptyRow() }
+          <>
+            { emptyRow() }
+            {
+              worksIdList.map(workId => {
+                return <WorkItem key={ workId } workId={ workId } />
+              })
+            }
+            { emptyRow() }
+          </>
         </tbody>
       </table>
 
