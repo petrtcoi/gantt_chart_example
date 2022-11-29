@@ -32,7 +32,7 @@ const DataTable: React.FC<DataTableProps> = (_props) => {
           </>
         </tbody>
       </table>
-
+      <div className='fade_right' />
     </div>
   )
 }

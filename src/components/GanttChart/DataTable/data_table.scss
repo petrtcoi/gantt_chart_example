@@ -8,6 +8,7 @@ $header_height: 48px;
 $row_height: 40px;
 
 #data_table {
+  position: relative;
   display: flex;
   flex: 1 0 auto;
   width: 100%;
@@ -135,4 +136,14 @@ tbody tr:not(:last-child) > td:first-child {
 [data-hidden='hidden'] {
   transform: rotate(-90deg);
   transition: transform 0.2s;
+}
+
+
+.fade_right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 8px;
+  background-image: linear-gradient(to left, RGBA(94,94,94,0.2), RGBA(94,94,94,0));
 }
