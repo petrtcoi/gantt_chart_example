@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import { apiGetWorks } from '../../../../api'
 
 import { WorksState } from '..'
-import {  WorkItem, WorkMeta, WorkStatus } from '../../../../types/worksState'
+import {  WorkItem, WorkStatus } from '../../../../types/worksState'
 import { GetWorksDto, WorkItemDto } from '../../../../api/apiGetWorks'
 
 type ApiData = { apiDto: GetWorksDto }
