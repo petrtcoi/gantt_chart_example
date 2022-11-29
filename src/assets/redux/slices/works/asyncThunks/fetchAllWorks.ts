@@ -1,8 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import * as R from 'ramda'
-import { WorksState } from '..'
+
 import { apiGetWorks } from '../../../../api'
-import { Project, WorkItem, WorkMeta, WorkId, WorkLevel, nextLevel, WorkStatus } from '../../../../types/worksState'
+
+import { WorksState } from '..'
+import {  WorkItem, WorkMeta, WorkStatus } from '../../../../types/worksState'
 import { GetWorksDto, WorkItemDto } from '../../../../api/apiGetWorks'
 
 type ApiData = { apiDto: GetWorksDto }
@@ -10,7 +12,6 @@ type WithProject = ApiData & Pick<WorksState, 'project'>
 type WithRootNodeId = ApiData & Pick<WorksState, 'rootNodeId'>
 type WithProjectWorks = WithRootNodeId & Pick<WorksState, 'workbyId'>
 type WithProjectWorksMeta = WithProjectWorks & Pick<WorksState, 'metaById'>
-
 type withError = { error?: string }
 
 const defLevel1 = R.defaultTo(1)
@@ -148,7 +149,7 @@ function scanWorkForMeta(workDto: WorkItemDto, metaById: WorksState['metaById'])
 /**
  * Set rootDay
  */
-function setRootDay(props: WithProjectWorksMeta): WorksState {
+function setRootDay(props: WithProjectWorksMeta) {
   return {
     ...props,
     rootDay: props.apiDto.chart.period_start
@@ -159,7 +160,7 @@ function setRootDay(props: WithProjectWorksMeta): WorksState {
 /**
  * Set Fetched = true
  */
-function setFetchedTrue(props: WorksState): WorksState {
+function setFetchedTrue(props: WorksState) {
   return {
     ...props,
     fetched: true

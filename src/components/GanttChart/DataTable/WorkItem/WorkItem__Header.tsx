@@ -1,44 +1,48 @@
 import React from 'react'
-import { WorkId, WorkLevel, WorkStatus } from '../../../../assets/types/worksState'
-import { useAppDispatch } from '../../../../assets/redux/hooks/index'
+import { WorkId, WorkStatus } from '../../../../assets/types/worksState'
+import { useAppDispatch, useAppSelector } from '../../../../assets/redux/hooks/index'
 import { setStatus } from '../../../../assets/redux/slices/works'
+import { getChildQnty, selectMeta, selectWork } from '../../../../assets/redux/slices/works/selectors'
 
 
 
 type WorkItem__HeaderProps = {
   workId: WorkId
-  title: string
-  status: WorkStatus
-  level: WorkLevel
-  childQnty: number
 }
 
 const WorkItem__Header: React.FC<WorkItem__HeaderProps> = (props) => {
 
+  const work = useAppSelector(selectWork(props.workId))
+  const meta = useAppSelector(selectMeta(props.workId))
+  const childQnty = useAppSelector(getChildQnty(props.workId))
+
+
   const dispatch = useAppDispatch()
-  const paddingLeft = props.level * 20
+  const paddingLeft = meta.level * 20
   const handleToggleStatus = () => {
-    dispatch(setStatus({ workId: props.workId, status: props.status === WorkStatus.Collapsed ? WorkStatus.Expanded : WorkStatus.Collapsed }))
+    dispatch(setStatus({ workId: props.workId, status: meta.status === WorkStatus.Collapsed ? WorkStatus.Expanded : WorkStatus.Collapsed }))
   }
 
-
+  if (!work || !meta) return null
   return (
-    <td className='work__header' style={ { paddingLeft } }>
-      <div
-        className='pict icon_collapse'
-        data-hidden={ props.status === WorkStatus.Collapsed ? 'hidden' : 'showing' }
-        onClick={() => handleToggleStatus()}
-      />
+    <td  style={ { paddingLeft } }>
+      <div className="work__header">
+        <div
+          className='pict icon_collapse'
+          data-hidden={ meta.status === WorkStatus.Collapsed ? 'hidden' : 'showing' }
+          onClick={ () => handleToggleStatus() }
+        />
 
-      <div className={ `pict icon_level-${props.level}` } />
+        <div className={ `pict icon_level-${meta.level}` } />
 
-      { props.childQnty > 0 &&
-        <div className='pict child_qnty' >
-          { props.childQnty }
-        </div>
-      }
+        { childQnty > 0 &&
+          <div className='pict child_qnty' >
+            { childQnty }
+          </div>
+        }
 
-      { props.title }
+        { work.title }
+      </div>
     </td>
   )
 

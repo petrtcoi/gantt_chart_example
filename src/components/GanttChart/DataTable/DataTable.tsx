@@ -16,7 +16,7 @@ const DataTable: React.FC<DataTableProps> = (_props) => {
 
   const worksIdList = useAppSelector(getWorkIdList)
   const rootDay = getRootDay()
-  if (isError(rootDay)) return null
+  if (!rootDay) return null
 
 
 
@@ -32,6 +32,7 @@ const DataTable: React.FC<DataTableProps> = (_props) => {
                 return <WorkItem key={ workId } workId={ workId } />
               })
             }
+            
             { emptyRow() }
           </>
         </tbody>
@@ -46,8 +47,7 @@ export default DataTable
 
 function emptyRow() {
   return (
-    <tr >
-      <td></td>
+    <tr>
       { <EmptyCells lineN={ -999 } /> }
     </tr>
   )

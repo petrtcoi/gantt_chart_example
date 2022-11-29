@@ -14,6 +14,10 @@ export const selectRootDate = (state: RootState) => state.works.rootDay
 export const selectWork = (workId: WorkId) => (state: RootState) => state.works.workbyId[workId]
 //  мета-данные работы 
 export const selectMeta = (workId: WorkId) => (state: RootState) => state.works.metaById[workId]
+//  controlledUppedNode Status
+export const selectUpperNodeStatus = (workId: WorkId) => (state: RootState) => state.works.metaById[workId].upperNodeStatus
+
+export const selectProjectRootDay = (state: RootState) => state.works.rootDay
 
 
 /**
@@ -24,10 +28,10 @@ export const selectMeta = (workId: WorkId) => (state: RootState) => state.works.
  *        (в противном случае) -> Expanded
  * На всякий случай по-умолчанию вернет Collapsed
  */
-export const selectUpperControlerNodeStatus = (workId: WorkId) => (state: RootState) => {
+export const selectSupervisorNodeUpperNodeStatus = (workId: WorkId) => (state: RootState) => {
   const parentNode = state.works.metaById[workId].parentNode
   const prevNode = state.works.metaById[workId].prevNode
-  
+
   if (prevNode) return state.works.metaById[prevNode].upperNodeStatus
 
   if (parentNode) {
@@ -85,12 +89,12 @@ function getIdsList(metaById: WorksState['metaById'], workId?: WorkId) {
 
   function addWork(workId: WorkId, list?: WorkId[]): WorkId[] {
     const meta = metaById[workId]
-    
+
     if (!meta) return defEmptyArr(list)
-    
+
     const nextNode = meta.firstChildNode || meta.nextNode || undefined
     if (!nextNode) return ([...defEmptyArr(list), workId])
-    
+
     return addWork(nextNode, [...defEmptyArr(list), workId])
   }
 

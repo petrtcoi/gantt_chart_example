@@ -1,0 +1,12 @@
+.workitem_row {
+  position: relative;
+  display: block;
+  // flex-grow: 1;
+  height: 20px;
+  width: calc(100% - 2px);
+  // align-items: stretch;
+  margin: 0;
+  padding: 0px;
+  border: 1px solid black;
+  border-radius: 5px;
+}

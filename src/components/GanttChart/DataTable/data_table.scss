@@ -5,6 +5,7 @@ $font_work: #262842;
 $weekend: #a9a9b8;
 $table_border_radius: 10px;
 $header_height: 48px;
+$row_height: 40px;
 
 #data_table {
   display: flex;
@@ -90,18 +91,19 @@ $header_height: 48px;
 **/
 
 tbody tr:not(:last-child) {
-  height: 40px;
+  height: $row_height;
 }
 tbody td {
   border-right: 1px solid colors.$grey;
 }
 tbody tr:not(:last-child) > td:first-child {
   border-bottom: 1px solid colors.$grey;
+  margin: 0px;
 }
 
 .work__header {
   display: flex;
-  height: 40px;
+  height: $row_height;;
   align-items: center;
   justify-items: flex-start;
 

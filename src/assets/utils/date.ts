@@ -4,8 +4,8 @@ import { AppDate } from '../types/appDate'
 
 
 export function getDateFromString(dateString?: string) {
-  const date = dayjs(dateString)
-  return R.isNil(date) ? Error('wrong date format') : date
+  const date =  dayjs(dateString)
+  return R.isNil(date) ? null : date 
 }
 
 
@@ -76,3 +76,9 @@ export function getWeekDays(monday: AppDate): number[] {
 }
 
 
+/**
+ * Разница в днях между двумя датами
+ */
+export function daysDiff(start:AppDate, end: AppDate): number {
+  return end.diff(start, 'days')
+}

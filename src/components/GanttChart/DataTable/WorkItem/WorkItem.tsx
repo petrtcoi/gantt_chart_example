@@ -2,8 +2,9 @@ import React from 'react'
 import { WorkId, WorkStatus } from '../../../../assets/types/worksState'
 import WorkItem__Header from './WorkItem__Header'
 import { useAppDispatch, useAppSelector } from '../../../../assets/redux/hooks/index'
-import { selectWork, selectMeta, getChildQnty, selectUpperControlerNodeStatus } from '../../../../assets/redux/slices/works/selectors/index'
-import { setStatus, setUpperNodeStatus } from '../../../../assets/redux/slices/works'
+import { selectUpperNodeStatus, selectSupervisorNodeUpperNodeStatus } from '../../../../assets/redux/slices/works/selectors/index'
+import { setUpperNodeStatus } from '../../../../assets/redux/slices/works'
+import WorkItem__Row from './WorkItem__Row'
 
 type WorkItemProps = {
   workId: WorkId
@@ -13,24 +14,22 @@ const WorkItem: React.FC<WorkItemProps> = (props) => {
 
   const dispatch = useAppDispatch()
 
-  const work = useAppSelector(selectWork(props.workId))
-  const meta = useAppSelector(selectMeta(props.workId))
-  const childQnty = useAppSelector(getChildQnty(props.workId))
-  const controledStatus = useAppSelector(selectUpperControlerNodeStatus(props.workId))
+
+  const supervisorNodeUpperStatus = useAppSelector(selectSupervisorNodeUpperNodeStatus(props.workId))
+  const upperNodeStatus = useAppSelector(selectUpperNodeStatus(props.workId))
 
   React.useEffect(() => {
-    dispatch(setUpperNodeStatus({ workId: props.workId, status: controledStatus }))
-  }, [controledStatus])
+    dispatch(setUpperNodeStatus({ workId: props.workId, status: supervisorNodeUpperStatus }))
+  }, [supervisorNodeUpperStatus])
 
-  if (meta.upperNodeStatus === WorkStatus.Collapsed) return null
+  if (upperNodeStatus === WorkStatus.Collapsed) return null
   return (
-    <tr>
+    <tr >
       <WorkItem__Header
-        workId={ work.id }
-        title={ work.title }
-        level={ meta.level }
-        status={ meta.status }
-        childQnty={ childQnty }
+        workId={ props.workId }
+      />
+      <WorkItem__Row
+        workId={ props.workId }
       />
     </tr>
   )
